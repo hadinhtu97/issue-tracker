@@ -18,4 +18,19 @@ When the PUT request sent to /api/issues/{projectname} does not include update f
 
 You can send a DELETE request to /api/issues/{projectname} with an _id to delete an issue. If no _id is sent, the return value is { error: 'missing _id' }. On success, the return value is { result: 'successfully deleted', '_id': _id }. On failure, the return value is { error: 'could not delete', '_id': _id }.
 
-All 14 functional tests are complete and passing.
+All 14 functional tests are complete and passing :
+
+    Create an issue with every field: POST request to /api/issues/{project}
+    Create an issue with only required fields: POST request to /api/issues/{project}
+    Create an issue with missing required fields: POST request to /api/issues/{project}
+    View issues on a project: GET request to /api/issues/{project}
+    View issues on a project with one filter: GET request to /api/issues/{project}
+    View issues on a project with multiple filters: GET request to /api/issues/{project}
+    Update one field on an issue: PUT request to /api/issues/{project}
+    Update multiple fields on an issue: PUT request to /api/issues/{project}
+    Update an issue with missing _id: PUT request to /api/issues/{project}
+    Update an issue with no fields to update: PUT request to /api/issues/{project}
+    Update an issue with an invalid _id: PUT request to /api/issues/{project}
+    Delete an issue: DELETE request to /api/issues/{project}
+    Delete an issue with an invalid _id: DELETE request to /api/issues/{project}
+    Delete an issue with missing _id: DELETE request to /api/issues/{project}
