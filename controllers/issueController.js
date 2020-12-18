@@ -45,15 +45,18 @@ function IssueController() {
 
     this.updateIssue = (_id, issue_title, issue_text, created_by, assigned_to, open, status_text, callback) => {
         IssueModel.findById(_id, (err, issue) => {
-            if (err) return callback(err, null);
-            if (issue_title != undefined) issue.issue_title = issue_title;
-            if (issue_text != undefined) issue.issue_text = issue_text;
-            if (created_by != undefined) issue.created_by = created_by;
-            if (assigned_to != undefined) issue.assigned_to = assigned_to;
-            if (open != undefined) issue.open = !issue.open;
-            if (status_text != undefined) issue.status_text = status_text;
-            issue.updated_on = new Date().toUTCString();
-            issue.save((err, data) => err ? callback(err, null) : callback(null, data));
+            if (err) {
+                callback(err, null);
+            } else {
+                if (issue_title != undefined) issue.issue_title = issue_title;
+                if (issue_text != undefined) issue.issue_text = issue_text;
+                if (created_by != undefined) issue.created_by = created_by;
+                if (assigned_to != undefined) issue.assigned_to = assigned_to;
+                if (open != undefined) issue.open = !issue.open;
+                if (status_text != undefined) issue.status_text = status_text;
+                issue.updated_on = new Date().toUTCString();
+                issue.save((err, data) => err ? callback(err, null) : callback(null, data));
+            }
         })
     }
 

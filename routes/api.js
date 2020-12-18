@@ -25,7 +25,7 @@ module.exports = (app) => {
             if (req.body._id == undefined) {
                 res.json({ error: 'missing _id' })
             } else if (req.body.issue_title == undefined && req.body.issue_text == undefined && req.body.created_by == undefined && req.body.assigned_to == undefined && req.body.open == undefined && req.body.status_text == undefined) {
-                res.json({ error: 'no update field(s) sent', '_id': _id })
+                res.json({ error: 'no update field(s) sent', '_id': req.body._id })
             } else {
                 issueController.updateIssue(req.body._id, req.body.issue_title, req.body.issue_text, req.body.created_by, req.body.assigned_to, req.body.open, req.body.status_text, (err, issueUpdated) => {
                     err ? res.json({ error: 'could not update', '_id': req.body._id }) : res.json({ result: 'successfully updated', '_id': req.body._id })
