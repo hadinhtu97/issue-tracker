@@ -63,7 +63,7 @@ function IssueController() {
     }
 
     this.deleteIssue = (_id, callback) => {
-        IssueModel.findByIdAndDelete(_id, (err, data) => err ? callback(err, null) : callback(null, data));
+        IssueModel.findByIdAndDelete(_id, (err, data) => err ? callback(err, null) : data == null ? callback(true, null) : callback(null, data));
     }
 }
 
