@@ -8,6 +8,7 @@ module.exports = (app) => {
 
     app.route('/api/issue/:project/')
         .get((req, res) => {
+            let project = req.params.project;
             
         })
         .post((req, res) => {
