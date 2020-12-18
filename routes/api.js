@@ -1,12 +1,22 @@
 'use strict';
 
-const LoremController = require('../controllers/loremController.js');
+const IssueController = require('../controllers/issueController.js');
 
 module.exports = (app) => {
 
-    const loremController = new LoremController();
+    let issueController = new IssueController();
 
-    app.route('/api/lorem').get((req, res) => {
-        // res.send();
-    })
+    app.route('/api/issue/:project/')
+        .get((req, res) => {
+            
+        })
+        .post((req, res) => {
+
+        })
+        .put((req, res) => {
+
+        })
+        .delete((req, res) => {
+
+        })
 }
