@@ -47,6 +47,8 @@ function IssueController() {
         IssueModel.findById(_id, (err, issue) => {
             if (err) {
                 callback(err, null);
+            } else if (issue == null) {
+                callback(true, null);
             } else {
                 if (issue_title != undefined) issue.issue_title = issue_title;
                 if (issue_text != undefined) issue.issue_text = issue_text;
