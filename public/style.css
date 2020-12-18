@@ -13,3 +13,54 @@ h1 {
 hr {
     width: 70%;
 }
+
+div {
+    margin: 50px 0;
+}
+
+code {
+    font-family: monospace;
+    background-color: #ddd;
+    font-size: 15px;
+}
+
+p {
+    font-size: 30px;
+    color: #5e0080;
+}
+
+table {
+    margin: 0 auto;
+    width: 700px;
+    border-spacing: 100px 10px;
+}
+
+td {
+    vertical-align: top;
+    font-size: 20px;
+}
+
+label {
+    font-size: 15px;
+}
+
+input {
+    outline: none;
+    padding: 5px;
+    margin: 5px 0;
+    border: 1px solid #5e0080;
+}
+
+input[type=submit] {
+    background-color: white;
+    color: #5e0080;
+}
+
+input[type=submit]:hover {
+    background-color: cyan;
+}
+
+input[type=submit]:active {
+    color: white;
+    background-color: #dd4814;
+}
