@@ -16,57 +16,50 @@ const issueSchema = new mongoose.Schema({
 })
 
 function IssueController() {
+
     let IssueModel = mongoose.model('issue', issueSchema);
 
-    this.createIssue = (project, issue_title, issue_text, created_by, assigned_to = '', status_text = '') => {
+    this.getIssueByProject = (project, created_by, assigned_to, open, callback) => {
+        IssueModel.find({
+            project: project,
+            created_by: created_by == undefined ? { $exists: true } : created_by,
+            assigned_to: assigned_to == undefined ? { $exists: true } : assigned_to,
+            open: open == undefined ? { $exists: true } : open
+        }, (err, data) => err ? callback(err, null) : callback(null, data));
+    }
+
+    this.createIssue = (project, issue_title, issue_text, created_by, assigned_to, status_text, callback) => {
         let issue = new IssueModel({
             project: project,
             issue_title: issue_title,
             issue_text: issue_text,
-            created_on: new Date(),
-            updated_on: new Date(),
+            created_on: new Date().toUTCString(),
+            updated_on: new Date().toUTCString(),
             created_by: created_by,
-            assigned_to: assigned_to,
+            assigned_to: assigned_to == undefined ? '' : assigned_to,
             open: true,
-            status_text: status_text
+            status_text: status_text == undefined ? '' : status_text
         });
-        issue.save((err, data) => {
-            if (err) return console.log(err);
-            return data;
-        })
+        issue.save((err, data) => err ? callback(err, null) : callback(null, data));
     }
 
-    this.getAllIssueByProject = (project) => {
-        IssueModel.find({ project: project }, (err, issues) => {
-            if (err) return console.log(err);
-            return issues;
-        })
-    }
-
-    this.updateIssue = (_id, issue_title = '', issue_text = '', created_by = '', assigned_to = '', open = '', status_text = '') => {
+    this.updateIssue = (_id, issue_title, issue_text, created_by, assigned_to, open, status_text, callback) => {
         IssueModel.findById(_id, (err, issue) => {
-            if (err) return console.log(err);
-            if (issue_title != '') issue.issue_title = issue_title;
-            if (issue_text != '') issue.issue_text = issue_text;
-            if (created_by != '') issue.created_by = created_by;
-            if (assigned_to != '') issue.assigned_to = assigned_to;
-            if (open != '') issue.open = !issue.open;
-            if (status_text != '') issue.status_text = status_text;
-            if (updated_on != '') issue.updated_on = new Date();
-            issue.save((err, data) => {
-                if (err) return console.log(err);
-                return data;
-            })
+            if (err) return callback(err, null);
+            if (issue_title != undefined) issue.issue_title = issue_title;
+            if (issue_text != undefined) issue.issue_text = issue_text;
+            if (created_by != undefined) issue.created_by = created_by;
+            if (assigned_to != undefined) issue.assigned_to = assigned_to;
+            if (open != undefined) issue.open = !issue.open;
+            if (status_text != undefined) issue.status_text = status_text;
+            issue.updated_on = new Date().toUTCString();
+            issue.save((err, data) => err ? callback(err, null) : callback(null, data));
         })
     }
 
-    this.deleteIssue = (_id) => {
-        IssueModel.findByIdAndDelete(_id, (err, rmIssue) => {
-            if (err) console.log(err);
-            return rmIssue;
-        })
+    this.deleteIssue = (_id, callback) => {
+        IssueModel.findByIdAndDelete(_id, (err, data) => err ? callback(err, null) : callback(null, data));
     }
-
 }
 
 module.exports = IssueController;
