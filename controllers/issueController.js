@@ -50,7 +50,7 @@ function IssueController() {
                 issue_text: issue_text,
                 created_by: created_by,
                 assigned_to: assigned_to,
-                open: Boolean(open),
+                open: open == undefined ? undefined : Boolean(open),
                 status_text: status_text,
                 updated_on: new Date().toUTCString()
             },
