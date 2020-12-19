@@ -3,12 +3,10 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const assert = chai.assert;
-const IssueController = require('../controllers/issueController.js');
 
 chai.use(chaiHttp);
 
 const server = 'http://localhost:3000';
-let issueController = new IssueController();
 
 describe('Functional Test', () => {
 
@@ -33,8 +31,8 @@ describe('Functional Test', () => {
                 assert.isString(res.body.created_on);
                 assert.isString(res.body.updated_on);
                 assert.isTrue(res.body.open);
-                done();
             })
+        done();
     })
 
     it('Create an issue with only required fields: POST request to /api/issues/test', (done) => {
@@ -115,35 +113,54 @@ describe('Functional Test', () => {
     })
 
     it('Update one field on an issue: PUT request to /api/issues/test', (done) => {
-        // chai.request(server)
-        //     .put('/api/issues/test')
-        //     .send({
-        //         _id: '5fdcbf93d0dbbb78994bf2b0',
-        //         created_by: 'tuhd'
-        //     })
-        //     .end((err, res) => {
-        //         assert.equal(res.status, 200);
-        //         assert.equal(res.body.result, 'successfully updated');
-        //         assert.equal(res.body._id, '5fdcbf93d0dbbb78994bf2b0');
-        //         done();
-        //     })
+        chai.request(server)
+            .post('/api/issues/test')
+            .send({
+                issue_title: 'Login',
+                issue_text: 'Login problem',
+                created_by: 'iam',
+            })
+            .then((err, data) => {
+                let id = data.body._id;
+                chai.request(server)
+                    .put('api/issues/test')
+                    .send({
+                        _id: id,
+                        created_by: 'you'
+                    })
+                    .end((err, res) => {
+                        assert.equal(res.status, 200);
+                        assert.equal(res.body.result, 'successfully updated');
+                        assert.equal(res.body._id, id);
+                    })
+            })
         done();
     })
 
     it('Update multiple fields on an issue: PUT request to /api/issues/test', (done) => {
-        // chai.request(server)
-        //     .put('/api/issues/test')
-        //     .send({
-        //         _id: '5fdcbf93d0dbbb78994bf2b0',
-        //         created_by: 'tuhd',
-        //         assigned_to: 'you'
-        //     })
-        //     .end((err, res) => {
-        //         assert.equal(res.status, 200);
-        //         assert.equal(res.body.result, 'successfully updated');
-        //         assert.equal(res.body._id, '5fdcbf93d0dbbb78994bf2b0');
-        //         done();
-        //     })
+        chai.request(server)
+            .post('/api/issues/test')
+            .send({
+                issue_title: 'Login',
+                issue_text: 'Login problem',
+                created_by: 'iam',
+            })
+            .then((err, data) => {
+                let id = data.body._id;
+                chai.request(server)
+                    .put('api/issues/test')
+                    .send({
+                        _id: id,
+                        issue_title: 'logout',
+                        issue_text: 'logout problem',
+                        created_by: 'iam',
+                    })
+                    .end((err, res) => {
+                        assert.equal(res.status, 200);
+                        assert.equal(res.body.result, 'successfully updated');
+                        assert.equal(res.body._id, id);
+                    })
+            })
         done();
     })
 
@@ -190,17 +207,26 @@ describe('Functional Test', () => {
     })
 
     it('Delete an issue: DELETE request to /api/issues/test', (done) => {
-        // chai.request(server)
-        //     .delete('/api/issues/test')
-        //     .send({
-        //         _id: '1'
-        //     })
-        //     .end((err, res) => {
-        //         assert.equal(res.status, 200);
-        //         assert.equal(res.body.result, 'successfully deleted');
-        //         assert.equal(res.body._id, '1');
-        //         done();
-        //     })
+        chai.request(server)
+            .post('/api/issues/test')
+            .send({
+                issue_title: 'Login',
+                issue_text: 'Login problem',
+                created_by: 'iam',
+            })
+            .then((err, data) => {
+                let id = data.body.id;
+                chai.request(server)
+                    .delete('/api/issues/test')
+                    .send({
+                        _id: id
+                    })
+                    .end((err, res) => {
+                        assert.equal(res.status, 200);
+                        assert.equal(res.body.result, 'successfully deleted');
+                        assert.equal(res.body._id, id);
+                    })
+            })
         done();
     })
 
