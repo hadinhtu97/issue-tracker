@@ -25,6 +25,9 @@ app.route('/').get((req, res) => {
 
 apiRoutes(app);
 
+app.route('/:project/').get((req,res)=>{
+    res.sendFile(__dirname + '/views/project.html');
+})
 
 // Routes above here 
 
