@@ -18,7 +18,7 @@ div {
     margin: 50px 0;
 }
 
-code, #output {
+code {
     font-family: monospace;
     background-color: #ddd;
     font-size: 15px;
