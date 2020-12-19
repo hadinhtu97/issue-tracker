@@ -33,8 +33,8 @@ function IssueController() {
             project: project,
             issue_title: issue_title,
             issue_text: issue_text,
-            created_on: new Date().toUTCString(),
-            updated_on: new Date().toUTCString(),
+            created_on: new Date().toISOString(),
+            updated_on: new Date().toISOString(),
             created_by: created_by,
             assigned_to: assigned_to == undefined ? '' : assigned_to,
             open: true,
@@ -52,7 +52,7 @@ function IssueController() {
                 assigned_to: assigned_to,
                 open: open == undefined ? undefined : Boolean(open),
                 status_text: status_text,
-                updated_on: new Date().toUTCString()
+                updated_on: new Date().toISOString()
             },
             { new: true, omitUndefined: true },
             (err, data) => {
