@@ -11,6 +11,7 @@ $('#createForm').submit((event) => {
         data: $('#createForm').serialize(),
         success: data => $('#output').text(JSON.stringify(data))
     })
+    loadListIssue();
     event.preventDefault();
 })
 
@@ -21,6 +22,7 @@ $('#updateForm').submit((event) => {
         data: $('#updateForm').serialize(),
         success: data => $('#output').text(JSON.stringify(data))
     })
+    loadListIssue();
     event.preventDefault();
 })
 
@@ -31,5 +33,21 @@ $('#deleteForm').submit((event) => {
         data: $('#deleteForm').serialize(),
         success: data => $('#output').text(JSON.stringify(data))
     })
+    loadListIssue();
     event.preventDefault();
 })
+
+loadListIssue = () => {
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: data => {
+            let listIssue = [];
+            data.forEach(i => {
+                let issue = [];
+                listIssue.push
+            })
+        }
+    })
+
+}
