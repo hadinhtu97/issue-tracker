@@ -31,8 +31,9 @@ describe('Functional Test', () => {
                 assert.isString(res.body.created_on);
                 assert.isString(res.body.updated_on);
                 assert.isTrue(res.body.open);
+                done();
             })
-        done();
+        
     })
 
     it('Create an issue with only required fields: POST request to /api/issues/test', (done) => {
@@ -120,7 +121,7 @@ describe('Functional Test', () => {
                 issue_text: 'Login problem',
                 created_by: 'iam',
             })
-            .then((err, data) => {
+            .then(data => {
                 let id = data.body._id;
                 chai.request(server)
                     .put('api/issues/test')
@@ -132,9 +133,11 @@ describe('Functional Test', () => {
                         assert.equal(res.status, 200);
                         assert.equal(res.body.result, 'successfully updated');
                         assert.equal(res.body._id, id);
+                        done();
                     })
             })
-        done();
+            .catch(err => done(err));
+        
     })
 
     it('Update multiple fields on an issue: PUT request to /api/issues/test', (done) => {
@@ -159,9 +162,11 @@ describe('Functional Test', () => {
                         assert.equal(res.status, 200);
                         assert.equal(res.body.result, 'successfully updated');
                         assert.equal(res.body._id, id);
+                        done();
                     })
             })
-        done();
+            .catch(err => done(err));
+        
     })
 
     it('Update an issue with missing _id: PUT request to /api/issues/test', (done) => {
@@ -225,9 +230,11 @@ describe('Functional Test', () => {
                         assert.equal(res.status, 200);
                         assert.equal(res.body.result, 'successfully deleted');
                         assert.equal(res.body._id, id);
+                        done();
                     })
             })
-        done();
+            .catch(err => done(err));
+        
     })
 
     it('Delete an issue with an invalid _id: DELETE request to /api/issues/test', (done) => {
