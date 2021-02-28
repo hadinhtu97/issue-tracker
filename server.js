@@ -14,28 +14,17 @@ app.use(cors({ optionsSuccessStatus: 200 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(__dirname + "/public"));
-
 app.route('/').get((req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
+    res.send('Read README to use api.');
 });
 
-// Routes below here
-
-
 apiRoutes(app);
-
-app.route('/:project/').get((req,res)=>{
-    res.sendFile(__dirname + '/views/project.html');
-})
-
-// Routes above here 
 
 app.use((req, res) => {
     res.status(404);
     res.send('Not Found');
 })
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Your app is listening on port ' + process.env.PORT);
+app.listen(3000, () => {
+    console.log('Your app is listening on port 3000');
 })
