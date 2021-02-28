@@ -1,7 +1,7 @@
 {
   "name": "issue-tracker",
   "version": "1.0.0",
-  "description": "issue tracker",
+  "description": "Backend APIs manage issues",
   "main": "server.js",
   "scripts": {
     "test": "mocha",
@@ -15,7 +15,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.12.4",
     "mocha": "^8.2.1",
-    "mongodb": "^3.6.3",
     "mongoose": "^5.11.8"
   },
   "author": "Tu Ha Dinh",
